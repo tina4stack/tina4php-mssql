@@ -11,14 +11,25 @@ class DataMSSQL implements Database
 {
     use DataBaseCore;
 
-    public function open()
+    public function open() : void
     {
+        if (!function_exists("sqlsrv_connect")) {
+            throw new \Exception("Microsoft Sequel Server extension for PHP needs to be installed");
+        }
 
+        $serverName = $this->hostName . ", " . $this->port;
+
+        $this->dbh = (new MSSQLConnection(
+            $serverName,
+            $this->databaseName,
+            $this->username,
+            $this->password
+        ))->getConnection();
     }
 
     public function close()
     {
-        // TODO: Implement close() method.
+        sqlsrv_close($this->dbh);
     }
 
     public function exec()
@@ -33,12 +44,19 @@ class DataMSSQL implements Database
 
     public function tableExists(string $tableName): bool
     {
-        // TODO: Implement tableExists() method.
+        //
+
+        if (!empty($tableName)) {
+            // table name must be in upper case
+            $exists = $this->fetch("sp_tables @table_name=\"{$tableName}\"");
+
+            return !empty($exists->records());
+        }
     }
 
     public function fetch($sql, int $noOfRecords = 10, int $offSet = 0, array $fieldMapping = []): ?DataResult
     {
-        // TODO: Implement fetch() method.
+        return (new MSSQLQuery($this))->query($sql, $noOfRecords, $offSet, $fieldMapping);
     }
 
     public function commit($transactionId = null)
@@ -63,7 +81,13 @@ class DataMSSQL implements Database
 
     public function error()
     {
-        // TODO: Implement error() method.
+        $errorMessages = \sqlsrv_errors(SQLSRV_ERR_ALL);
+
+        if ($errorMessages !== null) {
+            return (new DataError("Error", print_r ($errorMessages, 1)));
+        } else {
+            return (new DataError(0, "None"));
+        }
     }
 
     public function getDatabase(): array

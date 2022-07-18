@@ -16,7 +16,7 @@ class DataMSSQLTest extends TestCase
 
     final public function setUp(): void
     {
-        $this->connectionString = "localhost/1433:tina4";
+        $this->connectionString = "localhost/1433:master";
         $this->DBA = new \Tina4\DataMSSQL($this->connectionString, "sa", "Tina1234!");
     }
 
@@ -27,7 +27,7 @@ class DataMSSQLTest extends TestCase
 
     final public function testTableExists() : void
     {
-        $exists = $this->DBA->tableExists("RDB\$DATABASE");
+        $exists = $this->DBA->tableExists("spt_fallback_db");
         $this->assertIsBool($exists, "Not working");
         $exists = $this->DBA->tableExists("user_one");
         $this->assertEquals(false, $exists, "Not working false table check");

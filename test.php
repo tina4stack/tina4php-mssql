@@ -1,0 +1,3 @@
+<?php
+
+sqlsrv_connect();
