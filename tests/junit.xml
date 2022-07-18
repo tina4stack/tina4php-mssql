@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="D:\projects\php\tina4php-mssql\tests" tests="5" assertions="1" errors="4" warnings="0" failures="0" skipped="0" time="0.008370">
+    <testsuite name="DataMSSQLTest" file="D:\projects\php\tina4php-mssql\tests\DataMSSQLTest.php" tests="5" assertions="1" errors="4" warnings="0" failures="0" skipped="0" time="0.008370">
+      <testcase name="testOpen" class="DataMSSQLTest" classname="DataMSSQLTest" file="D:\projects\php\tina4php-mssql\tests\DataMSSQLTest.php" line="23" assertions="1" time="0.006800"/>
+      <testcase name="testTableExists" class="DataMSSQLTest" classname="DataMSSQLTest" file="D:\projects\php\tina4php-mssql\tests\DataMSSQLTest.php" line="28" assertions="0" time="0.001171">
+        <error type="TypeError">DataMSSQLTest::testTableExists
+TypeError: Tina4\DataMSSQL::tableExists(): Return value must be of type bool, none returned
+
+D:\projects\php\tina4php-mssql\Tina4\DataMSSQL.php:37
+D:\projects\php\tina4php-mssql\tests\DataMSSQLTest.php:30</error>
+      </testcase>
+      <testcase name="testDropCreateTable" class="DataMSSQLTest" classname="DataMSSQLTest" file="D:\projects\php\tina4php-mssql\tests\DataMSSQLTest.php" line="36" assertions="0" time="0.000188">
+        <error type="TypeError">DataMSSQLTest::testDropCreateTable
+TypeError: Tina4\DataMSSQL::tableExists(): Return value must be of type bool, none returned
+
+D:\projects\php\tina4php-mssql\Tina4\DataMSSQL.php:37
+D:\projects\php\tina4php-mssql\tests\DataMSSQLTest.php:38</error>
+      </testcase>
+      <testcase name="testRead" class="DataMSSQLTest" classname="DataMSSQLTest" file="D:\projects\php\tina4php-mssql\tests\DataMSSQLTest.php" line="62" assertions="0" time="0.000119">
+        <error type="TypeError">DataMSSQLTest::testRead
+TypeError: Tina4\DataMSSQL::fetch(): Return value must be of type ?Tina4\DataResult, none returned
+
+D:\projects\php\tina4php-mssql\Tina4\DataMSSQL.php:42
+D:\projects\php\tina4php-mssql\tests\DataMSSQLTest.php:68</error>
+      </testcase>
+      <testcase name="testGetDatabase" class="DataMSSQLTest" classname="DataMSSQLTest" file="D:\projects\php\tina4php-mssql\tests\DataMSSQLTest.php" line="77" assertions="0" time="0.000092">
+        <error type="TypeError">DataMSSQLTest::testGetDatabase
+TypeError: Tina4\DataMSSQL::getDatabase(): Return value must be of type array, none returned
+
+D:\projects\php\tina4php-mssql\Tina4\DataMSSQL.php:72
+D:\projects\php\tina4php-mssql\tests\DataMSSQLTest.php:79</error>
+      </testcase>
+    </testsuite>
+  </testsuite>
+</testsuites>
