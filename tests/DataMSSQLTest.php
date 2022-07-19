@@ -30,7 +30,7 @@ class DataMSSQLTest extends TestCase
         $exists = $this->DBA->tableExists("spt_fallback_db");
         $this->assertIsBool($exists, "Not working");
         $exists = $this->DBA->tableExists("user_one");
-        $this->assertEquals(false, $exists, "Not working false table check");
+        $this->assertEquals(false, $exists, "Test table exists");
     }
 
     final public function testDropCreateTable() : void
@@ -44,34 +44,21 @@ class DataMSSQLTest extends TestCase
         }
 
         $this->DBA->commit();
-
-        $error = $this->DBA->exec("create table testing(id integer default 0, name varchar(200) default 'Name', age integer default 22, salary numeric (10,2), my_date timestamp default '01/01/1900', my_date_2 timestamp default 'now', my_date_3 date default '01/01/1900', primary key(id))");
-
+        $error = $this->DBA->exec("create table testing(id integer default 0, name varchar(200) default 'Name', age integer default 22, salary numeric (10,2), my_date timestamp,  my_date_3 date, primary key(id))");
         $this->DBA->commit();
-
         $exists = $this->DBA->tableExists("testing");
-
         $error = $this->DBA->exec("create table sub_testing (id integer default 1 not null, testing_id integer default 0 not null references testing(id) on delete cascade, primary key(id))");
         $this->DBA->commit();
-
+        $exists = $this->DBA->tableExists("sub_testing");
         $this->assertEquals(true, $exists, "Not working false table check");
     }
-
-
 
     final public function testRead(): void
     {
         $this->DBA->exec("insert into testing (id) values (?)", 1);
-
         $this->DBA->exec("insert into testing (id) values (2)");
-
         $records = $this->DBA->fetch("select * from testing")->asArray();
-
         $this->assertCount(2, $records, "Records were not 2");
-
-        $result = $this->DBA->exec("insert into testing (id) values (3) returning id")->asArray();
-
-        $this->assertEquals(3, $result[0]["id"]);
     }
 
     final public function testGetDatabase(): void

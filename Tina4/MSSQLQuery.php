@@ -29,7 +29,7 @@ class MSSQLQuery extends DataConnection implements DataBaseQuery
 
 
         //Don't add a limit if there is a limit already or if there is a stored procedure call
-        if (stripos($sql, "offset") === false && stripos($sql, "sp_") === false) {
+        if (stripos($sql, "offset") === false && stripos($sql, "@") === false && stripos($sql, "sp_") === false) {
             if (stripos($sql,"order by") !== false) {
                 $sql .= " Offset {$offSet} rows fetch next {$noOfRecords} rows only";
             } else {
@@ -58,12 +58,12 @@ class MSSQLQuery extends DataConnection implements DataBaseQuery
 
                 }
 
-                if (is_array($records) && count($records) > 0 && stripos($sql, "returning") === false) {
+                if (is_array($records) && count($records) > 0) {
                     //Check to prevent second call of procedure
-                    if (stripos($sql, "call") !== false) {
+                    if (stripos($sql, "@") !== false || stripos($sql, "sp_") !== false) {
                         $resultCount["COUNT_RECORDS"] = count($records);
                     } else {
-                        $sqlCount = "select count(*) as COUNT_RECORDS from ($initialSQL) tcount";
+                        $sqlCount = "select count(*) as COUNT_RECORDS from ($initialSQL) as tcount";
 
                         $recordCount = \sqlsrv_query($this->getDbh(), $sqlCount);
 
@@ -86,14 +86,14 @@ class MSSQLQuery extends DataConnection implements DataBaseQuery
             if (!empty($records)) {
                 //$record = $records[0];
                 $fields = \sqlsrv_field_metadata($recordCursor);
-                echo "FIELDS!";
-                print_r ($fields);
-
 
                 foreach ($fields as $fieldId => $fieldInfo) {
                     $fieldInfo = (array)json_decode(json_encode($fieldInfo));
 
-                    $fields[] = (new DataField($fid, $fieldInfo["name"], $fieldInfo["orgname"], $fieldInfo["type"], $fieldInfo["length"]));
+                    $newField = (new DataField($fid, $fieldInfo["Name"], $fieldInfo["Name"], $fieldInfo["Type"], $fieldInfo["Size"]??0));
+                    $newField->decimals = $fieldInfo["Precision"];
+                    $newField->isNotNull = $fieldInfo["Nullable"] !== 0;
+                    $fields[] = $newField;
                     $fid++;
                 }
             }
