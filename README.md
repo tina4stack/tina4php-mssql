@@ -2,7 +2,7 @@
 
 ### Installation
 ```
-composer require tina4stack/tina4php-firebird
+composer require tina4stack/tina4php-mssql
 ```
 
 ### Testing with Docker
