@@ -47,8 +47,6 @@ class MSSQLQuery extends DataConnection implements DataBaseQuery
 
         if ($error->getError()["errorCode"] === 0) {
             if (isset($recordCursor) && !empty($recordCursor))  {
-
-
                 while ($record = \sqlsrv_fetch_array($recordCursor)) {
                     if (is_array($record)) {
                         $records[] = (new DataRecord($record,
@@ -69,7 +67,7 @@ class MSSQLQuery extends DataConnection implements DataBaseQuery
 
                         $recordCount = \sqlsrv_query($this->getDbh(), $sqlCount);
 
-                        $resultCount = \sqlsrv_fetch_assoc($recordCount);
+                        $resultCount = \sqlsrv_fetch_array($recordCount);
 
                         if (empty($resultCount)) {
                             $resultCount["COUNT_RECORDS"] = 0;
@@ -88,7 +86,8 @@ class MSSQLQuery extends DataConnection implements DataBaseQuery
             if (!empty($records)) {
                 //$record = $records[0];
                 $fields = \sqlsrv_field_metadata($recordCursor);
-
+                echo "FIELDS!";
+                print_r ($fields);
 
 
                 foreach ($fields as $fieldId => $fieldInfo) {
@@ -103,8 +102,8 @@ class MSSQLQuery extends DataConnection implements DataBaseQuery
         }
 
         //Ensures the pointer is at the end in order to close the connection - Might be a buggy fix
-        if (stripos($sql, "call") !== false) {
-            while (mysqli_next_result($this->getDbh())) {
+        if (stripos($sql, "execute") !== false) {
+            while (\sqlsrv_next_result($this->getDbh())) {
             }
         }
 

@@ -1,36 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name="D:\projects\php\tina4php-mssql\tests" tests="5" assertions="3" errors="2" warnings="0" failures="2" skipped="0" time="0.181292">
-    <testsuite name="DataMSSQLTest" file="D:\projects\php\tina4php-mssql\tests\DataMSSQLTest.php" tests="5" assertions="3" errors="2" warnings="0" failures="2" skipped="0" time="0.181292">
-      <testcase name="testOpen" class="DataMSSQLTest" classname="DataMSSQLTest" file="D:\projects\php\tina4php-mssql\tests\DataMSSQLTest.php" line="23" assertions="1" time="0.053065"/>
-      <testcase name="testTableExists" class="DataMSSQLTest" classname="DataMSSQLTest" file="D:\projects\php\tina4php-mssql\tests\DataMSSQLTest.php" line="28" assertions="0" time="0.038995">
-        <error type="Error">DataMSSQLTest::testTableExists
-Error: Call to undefined function sqlsrv_fetch_assoc()
+  <testsuite name="D:\projects\php\tina4php-mssql\tests" tests="5" assertions="3" errors="2" warnings="0" failures="2" skipped="0" time="0.160694">
+    <testsuite name="DataMSSQLTest" file="D:\projects\php\tina4php-mssql\tests\DataMSSQLTest.php" tests="5" assertions="3" errors="2" warnings="0" failures="2" skipped="0" time="0.160694">
+      <testcase name="testOpen" class="DataMSSQLTest" classname="DataMSSQLTest" file="D:\projects\php\tina4php-mssql\tests\DataMSSQLTest.php" line="23" assertions="1" time="0.045152"/>
+      <testcase name="testTableExists" class="DataMSSQLTest" classname="DataMSSQLTest" file="D:\projects\php\tina4php-mssql\tests\DataMSSQLTest.php" line="28" assertions="0" time="0.031683">
+        <error type="TypeError">DataMSSQLTest::testTableExists
+TypeError: sqlsrv_fetch_array(): Argument #1 ($stmt) must be of type resource, bool given
 
-D:\projects\php\tina4php-mssql\Tina4\MSSQLQuery.php:72
-D:\projects\php\tina4php-mssql\Tina4\DataMSSQL.php:59
+D:\projects\php\tina4php-mssql\Tina4\MSSQLQuery.php:70
+D:\projects\php\tina4php-mssql\Tina4\DataMSSQL.php:58
 D:\projects\php\tina4php-mssql\Tina4\DataMSSQL.php:51
 D:\projects\php\tina4php-mssql\tests\DataMSSQLTest.php:30</error>
       </testcase>
-      <testcase name="testDropCreateTable" class="DataMSSQLTest" classname="DataMSSQLTest" file="D:\projects\php\tina4php-mssql\tests\DataMSSQLTest.php" line="36" assertions="1" time="0.041791">
+      <testcase name="testDropCreateTable" class="DataMSSQLTest" classname="DataMSSQLTest" file="D:\projects\php\tina4php-mssql\tests\DataMSSQLTest.php" line="36" assertions="1" time="0.037901">
         <failure type="PHPUnit\Framework\ExpectationFailedException">DataMSSQLTest::testDropCreateTable
 Not working false table check
 Failed asserting that false matches expected true.
 
 D:\projects\php\tina4php-mssql\tests\DataMSSQLTest.php:57</failure>
       </testcase>
-      <testcase name="testRead" class="DataMSSQLTest" classname="DataMSSQLTest" file="D:\projects\php\tina4php-mssql\tests\DataMSSQLTest.php" line="62" assertions="1" time="0.026235">
+      <testcase name="testRead" class="DataMSSQLTest" classname="DataMSSQLTest" file="D:\projects\php\tina4php-mssql\tests\DataMSSQLTest.php" line="62" assertions="1" time="0.024522">
         <failure type="PHPUnit\Framework\ExpectationFailedException">DataMSSQLTest::testRead
 Records were not 2
 Failed asserting that actual size 0 matches expected size 2.
 
 D:\projects\php\tina4php-mssql\tests\DataMSSQLTest.php:70</failure>
       </testcase>
-      <testcase name="testGetDatabase" class="DataMSSQLTest" classname="DataMSSQLTest" file="D:\projects\php\tina4php-mssql\tests\DataMSSQLTest.php" line="77" assertions="0" time="0.021207">
+      <testcase name="testGetDatabase" class="DataMSSQLTest" classname="DataMSSQLTest" file="D:\projects\php\tina4php-mssql\tests\DataMSSQLTest.php" line="77" assertions="0" time="0.021435">
         <error type="TypeError">DataMSSQLTest::testGetDatabase
 TypeError: Tina4\DataMSSQL::getDatabase(): Return value must be of type array, none returned
 
-D:\projects\php\tina4php-mssql\Tina4\DataMSSQL.php:96
+D:\projects\php\tina4php-mssql\Tina4\DataMSSQL.php:95
 D:\projects\php\tina4php-mssql\tests\DataMSSQLTest.php:79</error>
       </testcase>
     </testsuite>

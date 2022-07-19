@@ -49,7 +49,6 @@ class DataMSSQL implements Database
         if (!empty($tableName)) {
             // table name must be in upper case
             $exists = $this->fetch("sp_tables @table_name=\"{$tableName}\"");
-
             return !empty($exists->records());
         }
     }
@@ -61,12 +60,12 @@ class DataMSSQL implements Database
 
     public function commit($transactionId = null)
     {
-        // TODO: Implement commit() method.
+        \sqlsrv_commit($this->dbh);
     }
 
     public function rollback($transactionId = null)
     {
-        // TODO: Implement rollback() method.
+        \sqlsrv_rollback($this->dbh);
     }
 
     public function autoCommit(bool $onState = true): void
