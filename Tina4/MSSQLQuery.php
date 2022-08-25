@@ -32,6 +32,7 @@ class MSSQLQuery extends DataConnection implements DataBaseQuery
         if (stripos($sql, "offset") === false && stripos($sql, "@") === false && stripos($sql, "sp_") === false) {
             if (stripos($sql,"order by") !== false) {
                 $sql .= " Offset {$offSet} rows fetch next {$noOfRecords} rows only";
+                $initialSQL .= " Offset 0 rows";
             } else {
                 $sql .= " order by 1 Offset {$offSet} rows fetch next {$noOfRecords} rows only";
             }
@@ -63,7 +64,7 @@ class MSSQLQuery extends DataConnection implements DataBaseQuery
                     if (stripos($sql, "@") !== false || stripos($sql, "sp_") !== false) {
                         $resultCount["COUNT_RECORDS"] = count($records);
                     } else {
-                        $sqlCount = "select count(*) as COUNT_RECORDS from ($initialSQL) as tcount";
+                        $sqlCount = "select count(*) as COUNT_RECORDS from ({$initialSQL}) as tcount";
 
                         $recordCount = \sqlsrv_query($this->getDbh(), $sqlCount);
 
