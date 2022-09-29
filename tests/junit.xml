@@ -1,12 +1,92 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name="D:\projects\php\tina4php-mssql\tests" tests="5" assertions="7" errors="0" warnings="0" failures="0" skipped="0" time="0.438986">
-    <testsuite name="DataMSSQLTest" file="D:\projects\php\tina4php-mssql\tests\DataMSSQLTest.php" tests="5" assertions="7" errors="0" warnings="0" failures="0" skipped="0" time="0.438986">
-      <testcase name="testOpen" class="DataMSSQLTest" classname="DataMSSQLTest" file="D:\projects\php\tina4php-mssql\tests\DataMSSQLTest.php" line="23" assertions="1" time="0.052815"/>
-      <testcase name="testTableExists" class="DataMSSQLTest" classname="DataMSSQLTest" file="D:\projects\php\tina4php-mssql\tests\DataMSSQLTest.php" line="28" assertions="2" time="0.033330"/>
-      <testcase name="testDropCreateTable" class="DataMSSQLTest" classname="DataMSSQLTest" file="D:\projects\php\tina4php-mssql\tests\DataMSSQLTest.php" line="36" assertions="1" time="0.072957"/>
-      <testcase name="testRead" class="DataMSSQLTest" classname="DataMSSQLTest" file="D:\projects\php\tina4php-mssql\tests\DataMSSQLTest.php" line="56" assertions="1" time="0.050912"/>
-      <testcase name="testGetDatabase" class="DataMSSQLTest" classname="DataMSSQLTest" file="D:\projects\php\tina4php-mssql\tests\DataMSSQLTest.php" line="64" assertions="2" time="0.228971"/>
+  <testsuite name="D:\projects\php\tina4php-mssql\tests" tests="5" assertions="7" errors="0" warnings="0" failures="0" skipped="0" time="1.059726">
+    <testsuite name="DataMSSQLTest" file="D:\projects\php\tina4php-mssql\tests\DataMSSQLTest.php" tests="5" assertions="7" errors="0" warnings="0" failures="0" skipped="0" time="1.059726">
+      <testcase name="testOpen" class="DataMSSQLTest" classname="DataMSSQLTest" file="D:\projects\php\tina4php-mssql\tests\DataMSSQLTest.php" line="24" assertions="1" time="0.052552">
+        <system-out>Tina4\DataMSSQL Object
+(
+    [databaseMetaData:Tina4\DataMSSQL:private] =&gt; 
+    [dbh] =&gt; Resource id #99
+    [databaseName] =&gt; master
+    [port] =&gt; 1433
+    [hostName] =&gt; localhost
+    [username] =&gt; sa
+    [password] =&gt; Tina1234!
+    [dateFormat] =&gt; Y-m-d
+    [fetchLimit] =&gt; 100
+    [cache] =&gt; 
+    [transaction] =&gt; 
+)
+</system-out>
+      </testcase>
+      <testcase name="testTableExists" class="DataMSSQLTest" classname="DataMSSQLTest" file="D:\projects\php\tina4php-mssql\tests\DataMSSQLTest.php" line="29" assertions="2" time="0.192819">
+        <system-out>Tina4\DataMSSQL Object
+(
+    [databaseMetaData:Tina4\DataMSSQL:private] =&gt; 
+    [dbh] =&gt; Resource id #122
+    [databaseName] =&gt; master
+    [port] =&gt; 1433
+    [hostName] =&gt; localhost
+    [username] =&gt; sa
+    [password] =&gt; Tina1234!
+    [dateFormat] =&gt; Y-m-d
+    [fetchLimit] =&gt; 100
+    [cache] =&gt; 
+    [transaction] =&gt; 
+)
+</system-out>
+      </testcase>
+      <testcase name="testDropCreateTable" class="DataMSSQLTest" classname="DataMSSQLTest" file="D:\projects\php\tina4php-mssql\tests\DataMSSQLTest.php" line="37" assertions="1" time="0.062323">
+        <system-out>Tina4\DataMSSQL Object
+(
+    [databaseMetaData:Tina4\DataMSSQL:private] =&gt; 
+    [dbh] =&gt; Resource id #130
+    [databaseName] =&gt; master
+    [port] =&gt; 1433
+    [hostName] =&gt; localhost
+    [username] =&gt; sa
+    [password] =&gt; Tina1234!
+    [dateFormat] =&gt; Y-m-d
+    [fetchLimit] =&gt; 100
+    [cache] =&gt; 
+    [transaction] =&gt; 
+)
+</system-out>
+      </testcase>
+      <testcase name="testRead" class="DataMSSQLTest" classname="DataMSSQLTest" file="D:\projects\php\tina4php-mssql\tests\DataMSSQLTest.php" line="57" assertions="1" time="0.051421">
+        <system-out>Tina4\DataMSSQL Object
+(
+    [databaseMetaData:Tina4\DataMSSQL:private] =&gt; 
+    [dbh] =&gt; Resource id #139
+    [databaseName] =&gt; master
+    [port] =&gt; 1433
+    [hostName] =&gt; localhost
+    [username] =&gt; sa
+    [password] =&gt; Tina1234!
+    [dateFormat] =&gt; Y-m-d
+    [fetchLimit] =&gt; 100
+    [cache] =&gt; 
+    [transaction] =&gt; 
+)
+</system-out>
+      </testcase>
+      <testcase name="testGetDatabase" class="DataMSSQLTest" classname="DataMSSQLTest" file="D:\projects\php\tina4php-mssql\tests\DataMSSQLTest.php" line="65" assertions="2" time="0.700612">
+        <system-out>Tina4\DataMSSQL Object
+(
+    [databaseMetaData:Tina4\DataMSSQL:private] =&gt; 
+    [dbh] =&gt; Resource id #145
+    [databaseName] =&gt; master
+    [port] =&gt; 1433
+    [hostName] =&gt; localhost
+    [username] =&gt; sa
+    [password] =&gt; Tina1234!
+    [dateFormat] =&gt; Y-m-d
+    [fetchLimit] =&gt; 100
+    [cache] =&gt; 
+    [transaction] =&gt; 
+)
+</system-out>
+      </testcase>
     </testsuite>
   </testsuite>
 </testsuites>
