@@ -16,7 +16,7 @@ class DataMSSQL implements Database
      */
     private $databaseMetaData;
 
-    public function open() : void
+    public function open(): void
     {
         if (!function_exists("sqlsrv_connect")) {
             throw new \Exception("Microsoft Sequel Server extension for PHP needs to be installed");
@@ -52,12 +52,14 @@ class DataMSSQL implements Database
     }
 
     /**
-     * Gets the last ID
+     * Gets the last inserted row's ID from database
      * @return string
      */
     public function getLastId(): string
     {
-        // TODO: Implement getLastId() method. @justin
+        $lastId = $this->fetch("SELECT @@IDENTITY as last_id");
+
+        return $lastId->records(0)[0]->lastId;
     }
 
     /**
@@ -67,10 +69,14 @@ class DataMSSQL implements Database
     public function tableExists(string $tableName): bool
     {
         if (!empty($tableName)) {
+            $tableName = str_replace(']', '', str_replace('[', '', $tableName));
             // table name must be in upper case
             $exists = $this->fetch("sp_tables @table_name=\"{$tableName}\"");
+
             return !empty($exists->records());
         }
+
+        return false;
     }
 
     /**
@@ -108,7 +114,7 @@ class DataMSSQL implements Database
 
     public function startTransaction()
     {
-       return \sqlsrv_begin_transaction($this->dbh);
+        return \sqlsrv_begin_transaction($this->dbh);
     }
 
     public function error()
@@ -116,7 +122,7 @@ class DataMSSQL implements Database
         $errorMessages = \sqlsrv_errors(SQLSRV_ERR_ALL);
 
         if ($errorMessages !== null) {
-            return (new DataError(1, print_r ($errorMessages, 1)));
+            return (new DataError(1, print_r($errorMessages, 1)));
         } else {
             return (new DataError(0, "None"));
         }
