@@ -25,12 +25,13 @@ class MSSQLQuery extends DataConnection implements DataBaseQuery
     {
         $initialSQL = $sql;
 
+        //Remove all sub-queries that might confuse the checks
+        $checkSql = preg_replace('/\(([^()]*+|(?R))*\)/', '', $sql);
+
         //calculate the order by
-
-
         //Don't add a limit if there is a limit already or if there is a stored procedure call
-        if (stripos($sql, "offset") === false && stripos($sql, "@") === false && stripos($sql, "sp_") === false) {
-            if (stripos($sql,"order by") !== false) {
+        if (stripos($checkSql, "offset") === false && stripos($checkSql, "@") === false && stripos($checkSql, "sp_") === false) {
+            if (stripos($checkSql, "order by") !== false) {
                 $sql .= " Offset {$offSet} rows fetch next {$noOfRecords} rows only";
                 $initialSQL .= " Offset 0 rows";
             } else {
@@ -61,7 +62,7 @@ class MSSQLQuery extends DataConnection implements DataBaseQuery
 
                 if (is_array($records) && count($records) > 0) {
                     //Check to prevent second call of procedure
-                    if (stripos($sql, "@") !== false || stripos($sql, "sp_") !== false) {
+                    if (stripos($checkSql, "@") !== false || stripos($checkSql, "sp_") !== false) {
                         $resultCount["COUNT_RECORDS"] = count($records);
                     } else {
                         $sqlCount = "select count(*) as COUNT_RECORDS from ({$initialSQL}) as tcount";
@@ -84,6 +85,7 @@ class MSSQLQuery extends DataConnection implements DataBaseQuery
             //populate the fields
             $fid = 0;
             $fields = [];
+
             if (!empty($records)) {
                 //$record = $records[0];
                 $fields = \sqlsrv_field_metadata($recordCursor);
@@ -103,7 +105,7 @@ class MSSQLQuery extends DataConnection implements DataBaseQuery
         }
 
         //Ensures the pointer is at the end in order to close the connection - Might be a buggy fix
-        if (stripos($sql, "execute") !== false) {
+        if (stripos($checkSql, "execute") !== false) {
             while (\sqlsrv_next_result($this->getDbh())) {
             }
         }
