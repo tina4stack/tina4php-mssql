@@ -23,7 +23,7 @@ class MSSQLConnection
      */
     public function __construct(string $serverName, string $databaseName, string $username, string $password)
     {
-        $connectionInfo = array( "Database"=> $databaseName, "UID"=> $username, "PWD"=> $password);
+        $connectionInfo = array( "Database"=> $databaseName, "UID"=> $username, "PWD"=> $password, "CharacterSet" => "UTF-8");
         $this->connection = \sqlsrv_connect($serverName, $connectionInfo);
     }
 

@@ -18,6 +18,7 @@ class DataMSSQLTest extends TestCase
     {
         $this->connectionString = "localhost/1433:master";
         $this->DBA = new \Tina4\DataMSSQL($this->connectionString, "sa", "Tina1234!");
+
     }
 
     final public function testOpen(): void
