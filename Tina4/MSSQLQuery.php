@@ -65,7 +65,8 @@ class MSSQLQuery extends DataConnection implements DataBaseQuery
                     if (stripos($checkSql, "@") !== false || stripos($checkSql, "sp_") !== false) {
                         $resultCount["COUNT_RECORDS"] = count($records);
                     } else {
-                        $initialSQL = explode("order", strtolower($initialSQL))[0];
+                        //Separate by only the last "order by" syntax in case of nested queries
+                        $initialSQL = substr($initialSQL, 0, strrpos($initialSQL, 'order by'));
 
                         $sqlCount = "select count(*) as COUNT_RECORDS from ($initialSQL) as tcount";
 
