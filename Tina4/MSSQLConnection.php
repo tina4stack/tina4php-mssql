@@ -24,7 +24,14 @@ class MSSQLConnection
     public function __construct(string $serverName, string $databaseName, string $username, string $password)
     {
         $connectionInfo = array( "Database"=> $databaseName, "UID"=> $username, "PWD"=> $password, "CharacterSet" => "UTF-8");
+        // Environment specific setting to allow self-signed certificates, useful on local development
+        if (isset($_ENV["DB_TRUSTSERVERCERTIFICATE"])) {
+            $connectionInfo["TrustServerCertificate"] = $_ENV["DB_TRUSTSERVERCERTIFICATE"] ?? false;
+        }
         $this->connection = \sqlsrv_connect($serverName, $connectionInfo);
+        if (!$this->connection) {
+            die( print_r( sqlsrv_errors(), true));
+        }
     }
 
     /**
