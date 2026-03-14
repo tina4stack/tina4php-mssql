@@ -12,6 +12,7 @@ namespace Tina4;
  */
 class MSSQLMetaData extends DataConnection implements DataBaseMetaData
 {
+    use DataBaseMetaDataHelper;
 
     public function getTables(): array
     {
@@ -52,17 +53,9 @@ class MSSQLMetaData extends DataConnection implements DataBaseMetaData
 
         $columns = $this->getConnection()->fetch($sqlColumnInfo, 1000, 0)->AsObject();
 
-        $primaryKeys = $this->getPrimaryKeys($tableName);
-        $primaryKeyLookup = [];
-        foreach ($primaryKeys as $primaryKey) {
-            $primaryKeyLookup[$primaryKey->fieldName] = true;
-        }
-
-        $foreignKeys = $this->getForeignKeys($tableName);
-        $foreignKeyLookup = [];
-        foreach ($foreignKeys as $foreignKey) {
-            $foreignKeyLookup[$foreignKey->fieldName] = true;
-        }
+        $keyLookups = $this->buildKeyLookups($tableName);
+        $primaryKeyLookup = $keyLookups['primary'];
+        $foreignKeyLookup = $keyLookups['foreign'];
 
         foreach ($columns as $columnIndex => $columnData) {
 
@@ -98,17 +91,4 @@ class MSSQLMetaData extends DataConnection implements DataBaseMetaData
 
     }
 
-    public function getDatabaseMetaData(): array
-    {
-        $database = [];
-        $tables = $this->getTables();
-
-        foreach ($tables as $record) {
-            $tableInfo = $this->getTableInformation($record->tableName);
-
-            $database[strtolower($record->tableName)] = $tableInfo;
-        }
-
-        return $database;
-    }
 }
