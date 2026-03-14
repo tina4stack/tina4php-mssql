@@ -1,0 +1,15 @@
+version: '3.8'
+services:
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    ports:
+      - "1433:1433"
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "Tina1234!"
+      MSSQL_PID: Express
+    healthcheck:
+      test: ["CMD-SHELL", "/opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P 'Tina1234!' -Q 'SELECT 1'"]
+      interval: 10s
+      timeout: 5s
+      retries: 10

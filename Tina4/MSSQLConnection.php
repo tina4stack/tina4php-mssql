@@ -7,6 +7,10 @@
 
 namespace Tina4;
 
+/**
+ * MSSQLConnection
+ * Establishes a connection to a Microsoft SQL Server database using sqlsrv.
+ */
 class MSSQLConnection
 {
     /**
@@ -14,33 +18,36 @@ class MSSQLConnection
      * @var false|resource
      */
     private $connection;
+
     /**
-     * Creates a Firebird Database Connection
-     * @param string $serverName
-     * @param string $databaseName hostname, port
-     * @param string $username database username
-     * @param string $password password of the user
+     * Creates a MSSQL Database Connection
+     * @param string $serverName Server hostname
+     * @param string $databaseName Database name
+     * @param string $username Database username
+     * @param string $password Password of the user
+     * @throws \RuntimeException When connection fails
      */
     public function __construct(string $serverName, string $databaseName, string $username, string $password)
     {
-        $connectionInfo = array( "Database"=> $databaseName, "UID"=> $username, "PWD"=> $password, "CharacterSet" => "UTF-8");
+        $connectionInfo = ["Database" => $databaseName, "UID" => $username, "PWD" => $password, "CharacterSet" => "UTF-8"];
         // Environment specific setting to allow self-signed certificates, useful on local development
         if (isset($_ENV["DB_TRUSTSERVERCERTIFICATE"])) {
             $connectionInfo["TrustServerCertificate"] = $_ENV["DB_TRUSTSERVERCERTIFICATE"] ?? false;
         }
         $this->connection = \sqlsrv_connect($serverName, $connectionInfo);
         if (!$this->connection) {
-            die( print_r( sqlsrv_errors(), true));
+            $errors = \sqlsrv_errors();
+            $message = is_array($errors) ? $errors[0]['message'] ?? 'Unknown error' : 'Unknown error';
+            throw new \RuntimeException("MSSQL connection failed: {$message}");
         }
     }
 
     /**
-     * Returns a databse connection or false if failed
+     * Returns a database connection or false if failed
      * @return false|resource
      */
     final public function getConnection()
     {
         return $this->connection;
     }
-
 }
