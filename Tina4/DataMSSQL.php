@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Tina4 - This is not a 4ramework.
  * Copy-right 2007 - current Tina4
@@ -7,7 +8,7 @@
 
 namespace Tina4;
 
-class DataMSSQL implements Database
+class DataMSSQL implements DataBase
 {
     use DataBaseCore;
 
